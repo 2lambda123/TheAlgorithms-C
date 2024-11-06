@@ -3,8 +3,7 @@
 from dataclasses import dataclass
 from os import listdir
 from pathlib import Path
-
-import requests
+from security import safe_requests
 
 
 @dataclass
@@ -21,7 +20,7 @@ def fetch_leetcode_folder_tasks(solutions_folder: Path) -> list[Task]:
     """Fetch leetcode tasks from the Leetcode"""
 
     # Fetch tasks info from the leetcode API.
-    resp = requests.get("https://leetcode.com/api/problems/algorithms/", timeout=10)
+    resp = safe_requests.get("https://leetcode.com/api/problems/algorithms/", timeout=10)
     content_dict = resp.json()
 
     raw_tasks_id_dict = {}
